@@ -9,7 +9,7 @@ export const Board = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  header {
+  > header {
     padding: 0.5rem;
     font-size: 0.87rem;
     display: flex;
