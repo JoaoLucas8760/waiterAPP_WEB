@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Board, OrdersContainer } from "./styles";
 import { Order } from "../../types/Order";
+import { OrderModal } from "../OrderModal";
 
 type Props = {
   icon: String;
-  status: String;
+  title: String;
   orders: Order[];
 };
 
-export function OrdersBoard({ icon, status, orders }: Props) {
+export function OrdersBoard({ icon, title, orders }: Props) {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  function handleOpenModal() {
+    setIsModalVisible(true);
+  }
   return (
     <Board>
+      <OrderModal visible={isModalVisible} />
       <header>
         <span>{icon}</span>
-        <strong>{status}</strong>
-        <span>(1)</span>
+        <strong>{title}</strong>
+        <span>({orders.length})</span>
       </header>
 
       {orders.length > 0 && (
         <OrdersContainer>
           {orders?.map((order) => {
             return (
-              <button type="button" key={order._id}>
-                <strong>Mesa 2</strong>
-                <span>3 itens</span>
+              <button type="button" key={order._id} onClick={handleOpenModal}>
+                <strong>Mesa {order.table}</strong>
+                <span>{order?.products.length} itens</span>
               </button>
             );
           })}

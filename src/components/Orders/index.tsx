@@ -33,9 +33,9 @@ export function Orders({}) {
   return (
     <Container>
       {}
-      <OrdersBoard icon="⏱" status="Fila de espera" orders={orders} />
-      <OrdersBoard icon="👨‍🍳" status="Em preparação" />
-      <OrdersBoard icon="✅" status="Pronto" />
+      <OrdersBoard icon="⏱" title="Fila de espera" orders={orders} />
+      <OrdersBoard icon="👨‍🍳" title="Em preparação" orders={[]} />
+      <OrdersBoard icon="✅" title="Pronto" orders={[]} />
     </Container>
   );
 }
