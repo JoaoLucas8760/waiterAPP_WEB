@@ -1,20 +1,24 @@
 import closeIcon from "../../assets/images/close-icon.svg";
+import { Order } from "../../types/Order";
+import { OrderDeails } from "./styles";
 import { ModalBody, Overlary } from "./styles";
 
 interface Props {
   visible: Boolean;
+  handleCloseModal: () => void;
+  order: Order | null;
 }
 
-export function OrderModal({ visible }: Props) {
-  if (!visible) {
+export function OrderModal({ visible, handleCloseModal, order }: Props) {
+  if (!visible || !order) {
     return null;
   }
   return (
     <Overlary>
       <ModalBody>
         <header>
-          <strong>MESA 2</strong>
-          <button type="button">
+          <strong>MESA {order.table}</strong>
+          <button type="button" onClick={handleCloseModal}>
             <img src={closeIcon} alt="Icone de fechar" />
           </button>
         </header>
@@ -25,6 +29,10 @@ export function OrderModal({ visible }: Props) {
             <strong>Fila de espera</strong>
           </div>
         </div>
+
+        <OrderDeails>
+          <strong>Itens</strong>
+        </OrderDeails>
       </ModalBody>
     </Overlary>
   );
