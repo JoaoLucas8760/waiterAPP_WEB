@@ -11,7 +11,7 @@ type Props = {
 
 export function OrdersBoard({ icon, title, orders }: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedOrder, setSlectedOrder] = useState(null);
+  const [selectedOrder, setSlectedOrder] = useState<null | Order>(null);
   function handleOpenModal(order: Order) {
     setSlectedOrder(order);
     setIsModalVisible(true);
@@ -25,6 +25,7 @@ export function OrdersBoard({ icon, title, orders }: Props) {
       <OrderModal
         visible={isModalVisible}
         handleCloseModal={handleCloseModal}
+        order={selectedOrder}
       />
       <header>
         <span>{icon}</span>

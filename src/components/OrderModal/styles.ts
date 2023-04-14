@@ -60,4 +60,38 @@ export const OrderDeails = styled.div`
     font-size: 0.87rem;
     opacity: 0.8;
   }
+  .order-itens {
+    margin-top: 1rem;
+
+    .item {
+      display: flex;
+
+      & + .item {
+        margin-top: 1rem;
+      }
+
+      img {
+        border-radius: 6px;
+      }
+      .quantity {
+        font-size: 0.87rem;
+        color: #666;
+        display: block;
+        min-width: 1.25rem;
+        margin-left: 0.75rem;
+      }
+
+      .product-details {
+        margin-left: 0.25rem;
+        strong {
+          display: block;
+          margin-bottom: 0.25rem;
+        }
+        span {
+          font-size: 0.87rem;
+          color: #666;
+        }
+      }
+    }
+  }
 `;
