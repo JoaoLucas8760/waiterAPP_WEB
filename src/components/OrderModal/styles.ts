@@ -52,7 +52,7 @@ export const ModalBody = styled.div`
   }
 `;
 
-export const OrderDeails = styled.div`
+export const OrderDetails = styled.div`
   margin-top: 1.5rem;
 
   > strong {
@@ -93,5 +93,42 @@ export const OrderDeails = styled.div`
         }
       }
     }
+  }
+  .total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.87rem;
+    span {
+      font-weight: 500;
+      font-size: 0.87rem;
+      opacity: 0.8;
+    }
+  }
+`;
+
+export const Actions = styled.footer`
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  .primary {
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #fff;
+    border-radius: 3rem;
+    border: 0;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .secondary {
+    padding: 0.87rem 1.5rem;
+    color: #d73035;
+    font-weight: bold;
+    border: 0;
+    background: 0;
+    margin-top: 0.75rem;
   }
 `;
