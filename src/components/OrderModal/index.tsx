@@ -80,7 +80,11 @@ export function OrderModal({ visible, handleCloseModal, order }: Props) {
             <strong>Iniciar Produção</strong>
           </button>
 
-          <button type="button" className="secondary">
+          <button
+            type="button"
+            className="secondary"
+            onClick={handleCloseModal}
+          >
             Cancelar pedido
           </button>
         </Actions>
