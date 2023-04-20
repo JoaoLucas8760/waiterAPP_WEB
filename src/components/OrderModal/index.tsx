@@ -53,7 +53,7 @@ export function OrderModal({ visible, handleCloseModal, order }: Props) {
               <div className="item" key={_id}>
                 <img
                   style={{ objectFit: "cover" }}
-                  src={`http://localhost:3001/uploads/${product.imagePath}`}
+                  src={`http://localhost:3002/uploads/${product.imagePath}`}
                   alt={product.name}
                   width="56"
                   height={"28.51"}
