@@ -10,6 +10,7 @@ interface Props {
   order: Order | null;
   onCancelOrder: () => Promise<void>;
   isLoading: boolean;
+  onChangeOrderStatus: () => void;
 }
 
 export function OrderModal({
@@ -18,6 +19,7 @@ export function OrderModal({
   order,
   onCancelOrder,
   isLoading,
+  onChangeOrderStatus,
 }: Props) {
   if (!visible || !order) {
     return null;
@@ -83,10 +85,23 @@ export function OrderModal({
         </OrderDetails>
 
         <Actions>
-          <button type="button" className="primary" disabled={isLoading}>
-            <span>👨‍🍳</span>
-            <strong>Iniciar Produção</strong>
-          </button>
+          {order.status != "DONE" && (
+            <button
+              type="button"
+              className="primary"
+              disabled={isLoading}
+              onClick={onChangeOrderStatus}
+            >
+              {order.status === "WAITING" ? (
+                <>
+                  <span>👨‍🍳</span>
+                  <strong>Iniciar Produção</strong>
+                </>
+              ) : (
+                <strong>Concluir pedido</strong>
+              )}
+            </button>
+          )}
 
           <button
             type="button"
@@ -94,7 +109,7 @@ export function OrderModal({
             onClick={onCancelOrder}
             disabled={isLoading}
           >
-            Cancelar pedido
+            {order.status != "DONE" ? "Cancelar pedido" : "Apagar pedido"}
           </button>
         </Actions>
       </ModalBody>

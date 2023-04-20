@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { Board, OrdersContainer } from "./styles";
 import { Order } from "../../types/Order";
 import { OrderModal } from "../OrderModal";
@@ -9,9 +10,16 @@ type Props = {
   title: String;
   orders: Order[];
   onCancelOrder: (orderId: string) => void;
+  onChangeOrderStatus: (orderId: string, status: Order["status"]) => void;
 };
 
-export function OrdersBoard({ icon, title, orders, onCancelOrder }: Props) {
+export function OrdersBoard({
+  icon,
+  title,
+  orders,
+  onCancelOrder,
+  onChangeOrderStatus,
+}: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedOrder, setSlectedOrder] = useState<null | Order>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +28,26 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder }: Props) {
     setSlectedOrder(order);
     setIsModalVisible(true);
   }
+
+  async function handleChangeOrderStatus() {
+    setIsLoading(true);
+
+    const status =
+      selectedOrder?.status === "WAITING" ? "IN_PRODUCTION" : "DONE";
+
+    await api.patch(`/orders/${selectedOrder?._id}`, { status });
+
+    toast.success(
+      `O pedido da mesa ${selectedOrder?.table} foi ${
+        selectedOrder?.status === "WAITING"
+          ? "Enviado para produção"
+          : "Foi concluido"
+      }!`
+    );
+    onChangeOrderStatus(selectedOrder!._id, status);
+    setIsLoading(false);
+    setIsModalVisible(false);
+  }
   function handleCloseModal() {
     setIsModalVisible(false);
   }
@@ -27,6 +55,7 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder }: Props) {
   async function handleCancelOrder() {
     setIsLoading(true);
     await api.delete(`/orders/${selectedOrder?._id}`);
+    toast.success(`O pedido da mesa ${selectedOrder?.table} foi cancelado!`);
     onCancelOrder(selectedOrder!._id);
     setIsLoading(false);
     setIsModalVisible(false);
@@ -40,6 +69,7 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder }: Props) {
         order={selectedOrder}
         onCancelOrder={handleCancelOrder}
         isLoading={isLoading}
+        onChangeOrderStatus={handleChangeOrderStatus}
       />
       <header>
         <span>{icon}</span>
