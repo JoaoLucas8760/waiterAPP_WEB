@@ -98,7 +98,10 @@ export function OrderModal({
                   <strong>Iniciar Produção</strong>
                 </>
               ) : (
-                <strong>Concluir pedido</strong>
+                <>
+                  <span>✅</span>
+                  <strong>Concluir pedido</strong>
+                </>
               )}
             </button>
           )}
