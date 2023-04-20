@@ -8,9 +8,17 @@ interface Props {
   visible: Boolean;
   handleCloseModal: () => void;
   order: Order | null;
+  onCancelOrder: () => Promise<void>;
+  isLoading: boolean;
 }
 
-export function OrderModal({ visible, handleCloseModal, order }: Props) {
+export function OrderModal({
+  visible,
+  handleCloseModal,
+  order,
+  onCancelOrder,
+  isLoading,
+}: Props) {
   if (!visible || !order) {
     return null;
   }
@@ -75,7 +83,7 @@ export function OrderModal({ visible, handleCloseModal, order }: Props) {
         </OrderDetails>
 
         <Actions>
-          <button type="button" className="primary">
+          <button type="button" className="primary" disabled={isLoading}>
             <span>👨‍🍳</span>
             <strong>Iniciar Produção</strong>
           </button>
@@ -83,7 +91,8 @@ export function OrderModal({ visible, handleCloseModal, order }: Props) {
           <button
             type="button"
             className="secondary"
-            onClick={handleCloseModal}
+            onClick={onCancelOrder}
+            disabled={isLoading}
           >
             Cancelar pedido
           </button>

@@ -22,11 +22,30 @@ export function Orders({}) {
   );
   const done = orders.filter((order) => order.status === "DONE");
 
+  function handleCancelOrder(orderId: string) {
+    setOrders((prevstate) => prevstate.filter((order) => order._id != orderId));
+  }
+
   return (
     <Container>
-      <OrdersBoard icon="⏱" title="Fila de espera" orders={waiting} />
-      <OrdersBoard icon="👨‍🍳" title="Em preparação" orders={inProduction} />
-      <OrdersBoard icon="✅" title="Pronto" orders={done} />
+      <OrdersBoard
+        icon="⏱"
+        title="Fila de espera"
+        orders={waiting}
+        onCancelOrder={handleCancelOrder}
+      />
+      <OrdersBoard
+        icon="👨‍🍳"
+        title="Em preparação"
+        orders={inProduction}
+        onCancelOrder={handleCancelOrder}
+      />
+      <OrdersBoard
+        icon="✅"
+        title="Pronto"
+        orders={done}
+        onCancelOrder={handleCancelOrder}
+      />
     </Container>
   );
 }
